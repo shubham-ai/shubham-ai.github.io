@@ -1,7 +1,7 @@
 //-------------------
 // GLOBAL variables
 //-------------------
-var modelName = "cnn";
+var modelName = "cnn1";
 let model;
 
 var canvasWidth           	= 150;
