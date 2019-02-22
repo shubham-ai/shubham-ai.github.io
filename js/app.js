@@ -48,7 +48,7 @@ $("#select_model").change(function() {
   		modelName = "cnn";
 
   	} else if (select_option == "CNN2") {
-  		modelName = "cnn2";
+  		modelName = "cnn1";
 
   	} else {
   		modelName = "cnn";
@@ -244,7 +244,7 @@ function preprocessCanvas(image, modelName) {
 	}
 
 	// if model is digitrecognizercnn, perform all the preprocessing
-	else if (modelName === "cnn2") {
+	else if (modelName === "cnn1") {
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
 		let tensor = tf.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
