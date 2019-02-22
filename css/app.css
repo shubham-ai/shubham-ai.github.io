@@ -65,9 +65,9 @@ body {
 #chart_box {
   background-color: white;
   padding: 20px;
-  border-radius: 5px; }
-  @media screen and (max-width: 640px) {
+  border-radius: 10px; }
+  @media screen and (max-width: 1040px) {
     #chart_box {
-      padding: 5px; } }
+      padding: 10px; } }
 
 /*# sourceMappingURL=app.css.map */

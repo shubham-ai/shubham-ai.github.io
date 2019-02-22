@@ -1,7 +1,7 @@
 //-------------------
 // GLOBAL variables
 //-------------------
-var modelName = "digitrecognizermlp";
+var modelName = "digitrecognizercnn";
 let model;
 
 var canvasWidth           	= 150;
@@ -51,7 +51,7 @@ $("#select_model").change(function() {
   		modelName = "digitrecognizercnn";
 
   	} else {
-  		modelName = "digitrecognizermlp";
+  		modelName = "digitrecognizercnn";
   	}
 
   	loadModel(modelName);
@@ -273,9 +273,9 @@ async function predict() {
 	let results = Array.from(predictions)
 
 	// display the predictions in chart
-	displayChart(results)
+	// displayChart(results)
 
-	console.log(results);
+	console.log("shubham results "+results);
 }
 
 //------------------------------
