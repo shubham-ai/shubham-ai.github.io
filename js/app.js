@@ -1,14 +1,14 @@
 //-------------------
 // GLOBAL variables
 //-------------------
-var modelName = "digitrecognizercnn";
+var modelName = "cnn";
 let model;
 
 var canvasWidth           	= 150;
 var canvasHeight 			= 150;
 var canvasStrokeStyle		= "white";
 var canvasLineJoin			= "round";
-var canvasLineWidth       	= 10;
+var canvasLineWidth       	= 5;
 var canvasBackgroundColor 	= "black";
 var canvasId              	= "canvas";
 
@@ -44,14 +44,14 @@ $("#select_model").change(function() {
   	var select_model  = document.getElementById("select_model");
   	var select_option = select_model.options[select_model.selectedIndex].value;
 
-  	if (select_option == "MLP") {
-  		modelName = "digitrecognizermlp";
+  	if (select_option == "CNN1") {
+  		modelName = "cnn";
 
-  	} else if (select_option == "CNN") {
-  		modelName = "digitrecognizercnn";
+  	} else if (select_option == "CNN2") {
+  		modelName = "cnn2";
 
   	} else {
-  		modelName = "digitrecognizercnn";
+  		modelName = "cnn";
   	}
 
   	loadModel(modelName);
@@ -207,7 +207,7 @@ async function loadModel(modelName) {
   	// let layerOfModel = "{"modelTopology": {"keras_version": "2.2.2", "backend": "tensorflow", "model_config": {"class_name": "Sequential", "config": [{"class_name": "Conv2D", "config": {"name": "conv2d_1", "trainable": true, "batch_input_shape": [null, 28, 28, 1], "dtype": "float32", "filters": 32, "kernel_size": [5, 5], "strides": [1, 1], "padding": "valid", "data_format": "channels_last", "dilation_rate": [1, 1], "activation": "relu", "use_bias": true, "kernel_initializer": {"class_name": "VarianceScaling", "config": {"scale": 1.0, "mode": "fan_avg", "distribution": "uniform", "seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}, {"class_name": "MaxPooling2D", "config": {"name": "max_pooling2d_1", "trainable": true, "pool_size": [2, 2], "padding": "valid", "strides": [2, 2], "data_format": "channels_last"}}, {"class_name": "Dropout", "config": {"name": "dropout_1", "trainable": true, "rate": 0.2, "noise_shape": null, "seed": null}}, {"class_name": "Flatten", "config": {"name": "flatten_1", "trainable": true, "data_format": "channels_last"}}, {"class_name": "Dense", "config": {"name": "dense_1", "trainable": true, "units": 128, "activation": "relu", "use_bias": true, "kernel_initializer": {"class_name": "VarianceScaling", "config": {"scale": 1.0, "mode": "fan_avg", "distribution": "uniform", "seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}, {"class_name": "Dense", "config": {"name": "dense_2", "trainable": true, "units": 10, "activation": "softmax", "use_bias": true, "kernel_initializer": {"class_name": "VarianceScaling", "config": {"scale": 1.0, "mode": "fan_avg", "distribution": "uniform", "seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}]}, "training_config": {"optimizer_config": {"class_name": "Adam", "config": {"lr": 0.0010000000474974513, "beta_1": 0.8999999761581421, "beta_2": 0.9990000128746033, "decay": 0.0, "epsilon": 1e-07, "amsgrad": false}}, "loss": "categorical_crossentropy", "metrics": ["accuracy"], "sample_weight_mode": null, "loss_weights": null}}, "weightsManifest": [{"paths": ["group1-shard1of1"], "weights": [{"name": "conv2d_1/kernel", "shape": [5, 5, 1, 32], "dtype": "float32"}, {"name": "conv2d_1/bias", "shape": [32], "dtype": "float32"}, {"name": "dense_1/kernel", "shape": [4608, 128], "dtype": "float32"}, {"name": "dense_1/bias", "shape": [128], "dtype": "float32"}, {"name": "dense_2/kernel", "shape": [128, 10], "dtype": "float32"}, {"name": "dense_2/bias", "shape": [10], "dtype": "float32"}]}]}"
 
   // load the model using a HTTPS request (where you have stored your model files)
-  model = await tf.loadLayersModel("  https://raw.githubusercontent.com/shubham-ai/shubham-ai.github.io/master/output/cnn/model.json");
+  model = await tf.loadLayersModel("https://raw.githubusercontent.com/shubham-ai/shubham-ai.github.io/master/output/"+modelName+"/model.json");
   console.log("model loaded..");
 }
 
@@ -224,19 +224,27 @@ function preprocessCanvas(image, modelName) {
 	} 
 
 	// if model is digitrecognizermlp, perform all the preprocessing
-	else if (modelName === "digitrecognizermlp") {
+	else if (modelName === "cnn") {
 		
 		// resize the input image to digitrecognizermlp's target size of (784, )
+		// let tensor = tf.fromPixels(image)
+		//     .resizeNearestNeighbor([28, 28])
+		//     .mean(2)
+		//     .toFloat()
+		// 	.reshape([1 , 784]);
+		// return tensor.div(255.0);
 		let tensor = tf.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
 		    .mean(2)
-		    .toFloat()
-			.reshape([1 , 784]);
+		    .expandDims(2)
+		    .expandDims()
+		    .toFloat();
+		console.log(tensor.shape);
 		return tensor.div(255.0);
 	}
 
 	// if model is digitrecognizercnn, perform all the preprocessing
-	else if (modelName === "digitrecognizercnn") {
+	else if (modelName === "cnn2") {
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
 		let tensor = tf.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
@@ -272,7 +280,7 @@ async function predict() {
 	let results = Array.from(predictions)
 
 	// display the predictions in chart
-	// displayChart(results)
+	displayChart(results)
 
 	console.log("shubham results "+results);
 }
