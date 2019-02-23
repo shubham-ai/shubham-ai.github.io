@@ -250,7 +250,7 @@ function preprocessCanvas(image, modelName) {
 	// }
 
 	// if model is digitrecognizercnn, perform all the preprocessing
-	else if (modelName === "cnn1" || modelName === "cnn3" || modelName === "cnn"   ) {
+	else if (modelName) {
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
 		let tensor = tf.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
