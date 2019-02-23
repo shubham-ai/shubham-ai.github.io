@@ -1,7 +1,7 @@
 //-------------------
 // GLOBAL variables
 //-------------------
-var modelName = "cnn1";
+var modelName = "cnn3";
 let model;
 
 var canvasWidth           	= 150;
@@ -14,6 +14,8 @@ var canvasId              	= "canvas";
 
 var clickX = new Array();
 var clickY = new Array();
+
+
 var clickD = new Array();
 var drawing;
 
@@ -46,11 +48,15 @@ $("#select_model").change(function() {
 
   	if (select_option == "CNN1") {
   		modelName = "cnn";
-
+ 
   	} else if (select_option == "CNN2") {
   		modelName = "cnn1";
 
-  	} else {
+  	}
+  	else if(select_option == "CNN3"){
+  		modelName = "cnn3"
+  	}
+  	 else {
   		modelName = "cnn";
   	}
 
@@ -224,27 +230,27 @@ function preprocessCanvas(image, modelName) {
 	} 
 
 	// if model is digitrecognizermlp, perform all the preprocessing
-	else if (modelName === "cnn") {
+	// else if (modelName === "cnn") {
 		
-		// resize the input image to digitrecognizermlp's target size of (784, )
-		// let tensor = tf.fromPixels(image)
-		//     .resizeNearestNeighbor([28, 28])
-		//     .mean(2)
-		//     .toFloat()
-		// 	.reshape([1 , 784]);
-		// return tensor.div(255.0);
-		let tensor = tf.fromPixels(image)
-		    .resizeNearestNeighbor([28, 28])
-		    .mean(2)
-		    .expandDims(2)
-		    .expandDims()
-		    .toFloat();
-		console.log(tensor.shape);
-		return tensor.div(255.0);
-	}
+	// 	// resize the input image to digitrecognizermlp's target size of (784, )
+	// 	// let tensor = tf.fromPixels(image)
+	// 	//     .resizeNearestNeighbor([28, 28])
+	// 	//     .mean(2)
+	// 	//     .toFloat()
+	// 	// 	.reshape([1 , 784]);
+	// 	// return tensor.div(255.0);
+	// 	let tensor = tf.fromPixels(image)
+	// 	    .resizeNearestNeighbor([28, 28])
+	// 	    .mean(2)
+	// 	    .expandDims(2)
+	// 	    .expandDims()
+	// 	    .toFloat();
+	// 	console.log(tensor.shape);
+	// 	return tensor.div(255.0);
+	// }
 
 	// if model is digitrecognizercnn, perform all the preprocessing
-	else if (modelName === "cnn1") {
+	else if (modelName === "cnn1" || modelName === "cnn3" || modelName === "cnn"   ) {
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
 		let tensor = tf.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
