@@ -11,7 +11,7 @@ body {
   background-color: #4CAF50;
   border-radius: 5px;
   margin: 20px auto;
-  width: 680px; }
+  width: auto; }
   .digit-demo-container h3 {
     font-size: 15px;
     background-color: #356937;
@@ -63,6 +63,8 @@ body {
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.22); }
 
 #chart_box {
+  border: 1px dotted red;
+  max-height: 30rem ;
   background-color: white;
   padding: 20px;
   border-radius: 10px; }
@@ -71,3 +73,6 @@ body {
       padding: 10px; } }
 
 /*# sourceMappingURL=app.css.map */
+#result_box{
+  height: 45rem;
+}
