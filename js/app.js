@@ -225,9 +225,7 @@ loadModel(modelName);
 function preprocessCanvas(image, modelName) {
 
 	// if model is not available, send the tensor with expanded dimensions
-	if (modelName === undefined) {
-		alert("No model defined..")
-	} 
+ 
 
 	// if model is digitrecognizermlp, perform all the preprocessing
 	// else if (modelName === "cnn") {
@@ -250,9 +248,10 @@ function preprocessCanvas(image, modelName) {
 	// }
 
 	// if model is digitrecognizercnn, perform all the preprocessing
-	else if (modelName) {
+	if (modelName) {
+		console.log('ininininin')
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
-		let tensor = tf.fromPixels(image)
+		let tensor = tf.browser.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
 		    .mean(2)
 		    .expandDims(2)
