@@ -4,8 +4,8 @@
 var modelName = "cnn3";
 let model;
 
-var canvasWidth           	= 150;
-var canvasHeight 			= 150;
+var canvasWidth           	= 250;
+var canvasHeight 			= 250;
 var canvasStrokeStyle		= "white";
 var canvasLineJoin			= "round";
 var canvasLineWidth       	= 8;
@@ -249,7 +249,6 @@ function preprocessCanvas(image, modelName) {
 
 	// if model is digitrecognizercnn, perform all the preprocessing
 	if (modelName) {
-		console.log('ininininin')
 		// resize the input image to digitrecognizermlp's target size of (1, 28, 28)
 		let tensor = tf.browser.fromPixels(image)
 		    .resizeNearestNeighbor([28, 28])
@@ -324,7 +323,6 @@ function loadChart(label, data, modelSelected) {
 function displayChart(data) {
 	var select_model  = document.getElementById("select_model");
   	var select_option = select_model.options[select_model.selectedIndex].value;
-	console.log("shubham"+ data.length);
 	label = ['0',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  'A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',  'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z',  'a',  'b',  'd',  'e',  'f',  'g',  'h',  'n',  'q',  'r',  't']
 	if (firstTime == 0) {
 		loadChart(label, data, select_option);
