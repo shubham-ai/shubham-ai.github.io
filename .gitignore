@@ -1,3 +1,6 @@
+./output/.DS_Store
 ipynb_checkpoints/
 my-environment.yml
 test.cpp
+.ipynb_checkpoints/
+
