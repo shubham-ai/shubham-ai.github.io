@@ -214,6 +214,8 @@ async function loadModel(modelName) {
 
   // load the model using a HTTPS request (where you have stored your model files)
   model = await tf.loadLayersModel("https://shubham-ai.github.io/output/"+modelName+"/model.json");
+
+  
   // model = await tf.loadLayersModel("https://raw.githubusercontent.com/shubham-ai/shubham-ai.github.io/master/output/"+modelName+"/model.json");
   console.log("model loaded..");
 }
